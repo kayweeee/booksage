@@ -13,6 +13,7 @@ export default {
           200: "#EADBC8",
         },
         brown: {
+          300: "#D8BFAA",
           700: "#6B4226",
           800: "#5A3E36",
           900: "#3E2C29",
