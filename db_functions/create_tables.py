@@ -21,7 +21,7 @@ cur.execute("CREATE EXTENSION IF NOT EXISTS vector;")
 cur.execute("""
     CREATE TABLE IF NOT EXISTS book_aspects (
         id SERIAL PRIMARY KEY,
-        book_title TEXT,
+        title TEXT,
         aspect TEXT,
         aspect_embedding vector(1536)  -- Store embeddings for similarity search
     );
@@ -29,13 +29,18 @@ cur.execute("""
 
 # Create review_aspects table (for aggregated review insights per book)
 cur.execute("""
-    CREATE TABLE IF NOT EXISTS review_aspects (
+    CREATE TABLE IF NOT EXISTS books (
         id SERIAL PRIMARY KEY,
-        book_title TEXT UNIQUE,
-        review_aspects JSONB  -- Store extracted review aspects in JSON format
+        title TEXT UNIQUE,
+        review_aspects JSONB,  -- Store extracted review aspects in JSONB format
+        book_aspects JSONB,  -- Store book aspects in JSONB format
+        authors TEXT[],  -- Array of authors
+        summary TEXT,  -- Book summary
+        cover_image TEXT,  -- Cover image URL
+        average_rating FLOAT,  -- Book average rating
+        ratings_count INT  -- Number of ratings
     );
 """)
-
 # Create an index on aspect_embedding for faster similarity searches
 cur.execute("""
     CREATE INDEX IF NOT EXISTS book_aspect_embedding_index 

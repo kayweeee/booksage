@@ -4,12 +4,12 @@ from sqlalchemy import create_engine, text, types
 import ast
 import pandas as pd
 import psycopg2
-
+from sqlalchemy.dialects.postgresql import JSONB
 # Load the dataset
 file_path = "../book_aspects_with_embeddings.csv"
 df = pd.read_csv(file_path)
 
-df.rename(columns={"Book": "book_title"}, inplace=True)
+df.rename(columns={"Book": "title"}, inplace=True)
 
 def parse_embedding(embedding_str):
     return list(map(float, embedding_str.strip("[]").split(',')))
@@ -29,18 +29,37 @@ engine = create_engine(database_url)
 conn = psycopg2.connect(database_url)
 cur = conn.cursor()
 
-df_books = df[['book_title', 'review_aspects']].drop_duplicates()
+# # create aspects embedding table
+# insert_query = """
+#     INSERT INTO book_aspects (title, aspect, aspect_embedding)
+#     VALUES (%s, %s, %s)
+# """
 
-# Insert review aspects into PostgreSQL
-df_books.to_sql("review_aspects", engine, if_exists="replace", index=False, dtype={"review_aspects": types.JSON})
+# for _, row in df.iterrows():
+#     cur.execute(insert_query, (row['title'], row['book_aspects'], row['aspect_embedding']))
 
-insert_query = """
-    INSERT INTO book_aspects (book_title, aspect, aspect_embedding)
-    VALUES (%s, %s, %s)
-"""
 
-for _, row in df.iterrows():
-    cur.execute(insert_query, (row['book_title'], row['book_aspects'], row['aspect_embedding']))
+# FOR BOOK TABLE
+file_path = "../book_table.csv"
+df_books = pd.read_csv(file_path)
+
+def clean_authors(authors):
+    if isinstance(authors, str):
+        authors = ast.literal_eval(authors)
+    return authors if isinstance(authors, list) else [authors]
+
+df_books["authors"] = df_books["authors"].apply(clean_authors)
+
+df_books.to_sql("books", engine, if_exists="replace", index=False, dtype={
+        "title": types.TEXT,
+        "review_aspects": JSONB,
+        "book_aspects": JSONB,
+        "authors": types.ARRAY(types.TEXT),
+        "summary": types.TEXT,
+        "cover_image": types.TEXT,
+        "average_rating": types.FLOAT,
+        "ratings_count": types.INTEGER
+    })
 
 conn.commit()
 cur.close()
