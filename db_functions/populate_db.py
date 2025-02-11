@@ -40,6 +40,9 @@ cur = conn.cursor()
 
 
 # FOR BOOK TABLE
+import ast
+import json
+
 file_path = "../book_table.csv"
 df_books = pd.read_csv(file_path)
 
@@ -48,6 +51,17 @@ def clean_authors(authors):
         authors = ast.literal_eval(authors)
     return authors if isinstance(authors, list) else [authors]
 
+def convert_to_valid_json(value):
+    if isinstance(value, str):
+        try:
+            fixed_dict = ast.literal_eval(value) 
+            return json.loads(json.dumps(fixed_dict)) 
+        except (ValueError, SyntaxError):
+            print(f"Skipping invalid JSON: {value}")
+            return {} 
+    return value
+
+df_books["book_aspects"] = df_books["book_aspects"].apply(convert_to_valid_json)
 df_books["authors"] = df_books["authors"].apply(clean_authors)
 
 df_books.to_sql("books", engine, if_exists="replace", index=False, dtype={
