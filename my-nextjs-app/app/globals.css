@@ -5,7 +5,7 @@
 /* 🌟 Global Styles */
 body {
   @apply bg-beige-100 text-brown-900 dark:bg-brown-900 dark:text-beige-100;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   transition: all 0.3s ease-in-out;
 }
 
@@ -24,4 +24,12 @@ h3 {
 
 p {
   @apply text-sm text-gray-700 dark:text-gray-300;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

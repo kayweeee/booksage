@@ -5,7 +5,7 @@ import axios from "axios";
 import Book from "./components/Book";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import SmallBookCard from "./components/SmallBookCard";
-
+import BookCarousel from "./components/BookCarousel";
 export default function BookSearch() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
@@ -31,6 +31,177 @@ export default function BookSearch() {
       handleSearch();
     }
   };
+
+  const booksWithDetails = [
+    {
+      title: "1984",
+      authors: ["George Orwell"],
+      summary:
+        "It is 1984. The world is in a state of perpetual war and Big Brother sees and controls all. Winston Smith, a member of the Outer Party and propaganda-writer at the Ministry of Truth, is keeping a journal he should not be keeping and falling in love with Julia, a woman he should not be seeing. Outwardly compliant, Winston dreams of rebellion against the oppressive Big Brother, risking everything to recover his lost sense of individuality and control of his own future. HarperPerennialClassics brings great works of literature to life in digital format, upholding the highest standards in ebook production and celebrating reading in all its forms. Look for more titles in the HarperPerennial Classics collection to build your digital library.",
+      coverImage:
+        "http://books.google.com/books/content?id=Ku0wEGoXp9gC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      averageRating: 5,
+      ratingsCount: 64,
+      bookAspects: {
+        "Cultural richness and detail":
+          "The narrative incorporates diverse cultural elements that add authenticity and depth to character interactions and backgrounds.",
+        "Dynamic relationship dynamics":
+          "Characters navigate evolving friendships and alliances, showcasing authentic connections forged in adversity and complexity.",
+        "Exploration of moral ambiguity":
+          "Characters face complex ethical dilemmas, prompting readers to reflect on their own beliefs about right and wrong.",
+        "Layered narrative perspectives":
+          "The story unfolds through multiple viewpoints, enriching the reader's understanding of characters and plot intricacies.",
+        "Subtle humor amidst darkness":
+          "Clever humor is woven into serious moments, providing levity that enhances character relationships and keeps the narrative engaging.",
+        "Thought-provoking social commentary":
+          "The book subtly critiques societal norms and issues, inviting readers to reflect on contemporary challenges without being didactic.",
+        "Unconventional narrative structure":
+          "The non-linear storytelling and intertwining timelines challenge traditional narrative forms, maintaining suspense and reader engagement.",
+        "Vivid sensory descriptions":
+          "The author's ability to evoke all five senses creates an immersive experience, allowing readers to feel present in the story's settings.",
+      },
+    },
+    {
+      title: "1984",
+      authors: ["George Orwell"],
+      summary:
+        "It is 1984. The world is in a state of perpetual war and Big Brother sees and controls all. Winston Smith, a member of the Outer Party and propaganda-writer at the Ministry of Truth, is keeping a journal he should not be keeping and falling in love with Julia, a woman he should not be seeing. Outwardly compliant, Winston dreams of rebellion against the oppressive Big Brother, risking everything to recover his lost sense of individuality and control of his own future. HarperPerennialClassics brings great works of literature to life in digital format, upholding the highest standards in ebook production and celebrating reading in all its forms. Look for more titles in the HarperPerennial Classics collection to build your digital library.",
+      coverImage:
+        "http://books.google.com/books/content?id=Ku0wEGoXp9gC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      averageRating: 5,
+      ratingsCount: 64,
+      bookAspects: {
+        "Cultural richness and detail":
+          "The narrative incorporates diverse cultural elements that add authenticity and depth to character interactions and backgrounds.",
+        "Dynamic relationship dynamics":
+          "Characters navigate evolving friendships and alliances, showcasing authentic connections forged in adversity and complexity.",
+        "Exploration of moral ambiguity":
+          "Characters face complex ethical dilemmas, prompting readers to reflect on their own beliefs about right and wrong.",
+        "Layered narrative perspectives":
+          "The story unfolds through multiple viewpoints, enriching the reader's understanding of characters and plot intricacies.",
+        "Subtle humor amidst darkness":
+          "Clever humor is woven into serious moments, providing levity that enhances character relationships and keeps the narrative engaging.",
+        "Thought-provoking social commentary":
+          "The book subtly critiques societal norms and issues, inviting readers to reflect on contemporary challenges without being didactic.",
+        "Unconventional narrative structure":
+          "The non-linear storytelling and intertwining timelines challenge traditional narrative forms, maintaining suspense and reader engagement.",
+        "Vivid sensory descriptions":
+          "The author's ability to evoke all five senses creates an immersive experience, allowing readers to feel present in the story's settings.",
+      },
+    },
+    {
+      title: "1984",
+      authors: ["George Orwell"],
+      summary:
+        "It is 1984. The world is in a state of perpetual war and Big Brother sees and controls all. Winston Smith, a member of the Outer Party and propaganda-writer at the Ministry of Truth, is keeping a journal he should not be keeping and falling in love with Julia, a woman he should not be seeing. Outwardly compliant, Winston dreams of rebellion against the oppressive Big Brother, risking everything to recover his lost sense of individuality and control of his own future. HarperPerennialClassics brings great works of literature to life in digital format, upholding the highest standards in ebook production and celebrating reading in all its forms. Look for more titles in the HarperPerennial Classics collection to build your digital library.",
+      coverImage:
+        "http://books.google.com/books/content?id=Ku0wEGoXp9gC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      averageRating: 5,
+      ratingsCount: 64,
+      bookAspects: {
+        "Cultural richness and detail":
+          "The narrative incorporates diverse cultural elements that add authenticity and depth to character interactions and backgrounds.",
+        "Dynamic relationship dynamics":
+          "Characters navigate evolving friendships and alliances, showcasing authentic connections forged in adversity and complexity.",
+        "Exploration of moral ambiguity":
+          "Characters face complex ethical dilemmas, prompting readers to reflect on their own beliefs about right and wrong.",
+        "Layered narrative perspectives":
+          "The story unfolds through multiple viewpoints, enriching the reader's understanding of characters and plot intricacies.",
+        "Subtle humor amidst darkness":
+          "Clever humor is woven into serious moments, providing levity that enhances character relationships and keeps the narrative engaging.",
+        "Thought-provoking social commentary":
+          "The book subtly critiques societal norms and issues, inviting readers to reflect on contemporary challenges without being didactic.",
+        "Unconventional narrative structure":
+          "The non-linear storytelling and intertwining timelines challenge traditional narrative forms, maintaining suspense and reader engagement.",
+        "Vivid sensory descriptions":
+          "The author's ability to evoke all five senses creates an immersive experience, allowing readers to feel present in the story's settings.",
+      },
+    },
+    {
+      title: "1984",
+      authors: ["George Orwell"],
+      summary:
+        "It is 1984. The world is in a state of perpetual war and Big Brother sees and controls all. Winston Smith, a member of the Outer Party and propaganda-writer at the Ministry of Truth, is keeping a journal he should not be keeping and falling in love with Julia, a woman he should not be seeing. Outwardly compliant, Winston dreams of rebellion against the oppressive Big Brother, risking everything to recover his lost sense of individuality and control of his own future. HarperPerennialClassics brings great works of literature to life in digital format, upholding the highest standards in ebook production and celebrating reading in all its forms. Look for more titles in the HarperPerennial Classics collection to build your digital library.",
+      coverImage:
+        "http://books.google.com/books/content?id=Ku0wEGoXp9gC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      averageRating: 5,
+      ratingsCount: 64,
+      bookAspects: {
+        "Cultural richness and detail":
+          "The narrative incorporates diverse cultural elements that add authenticity and depth to character interactions and backgrounds.",
+        "Dynamic relationship dynamics":
+          "Characters navigate evolving friendships and alliances, showcasing authentic connections forged in adversity and complexity.",
+        "Exploration of moral ambiguity":
+          "Characters face complex ethical dilemmas, prompting readers to reflect on their own beliefs about right and wrong.",
+        "Layered narrative perspectives":
+          "The story unfolds through multiple viewpoints, enriching the reader's understanding of characters and plot intricacies.",
+        "Subtle humor amidst darkness":
+          "Clever humor is woven into serious moments, providing levity that enhances character relationships and keeps the narrative engaging.",
+        "Thought-provoking social commentary":
+          "The book subtly critiques societal norms and issues, inviting readers to reflect on contemporary challenges without being didactic.",
+        "Unconventional narrative structure":
+          "The non-linear storytelling and intertwining timelines challenge traditional narrative forms, maintaining suspense and reader engagement.",
+        "Vivid sensory descriptions":
+          "The author's ability to evoke all five senses creates an immersive experience, allowing readers to feel present in the story's settings.",
+      },
+    },
+    {
+      title: "1984",
+      authors: ["George Orwell"],
+      summary:
+        "It is 1984. The world is in a state of perpetual war and Big Brother sees and controls all. Winston Smith, a member of the Outer Party and propaganda-writer at the Ministry of Truth, is keeping a journal he should not be keeping and falling in love with Julia, a woman he should not be seeing. Outwardly compliant, Winston dreams of rebellion against the oppressive Big Brother, risking everything to recover his lost sense of individuality and control of his own future. HarperPerennialClassics brings great works of literature to life in digital format, upholding the highest standards in ebook production and celebrating reading in all its forms. Look for more titles in the HarperPerennial Classics collection to build your digital library.",
+      coverImage:
+        "http://books.google.com/books/content?id=Ku0wEGoXp9gC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      averageRating: 5,
+      ratingsCount: 64,
+      bookAspects: {
+        "Cultural richness and detail":
+          "The narrative incorporates diverse cultural elements that add authenticity and depth to character interactions and backgrounds.",
+        "Dynamic relationship dynamics":
+          "Characters navigate evolving friendships and alliances, showcasing authentic connections forged in adversity and complexity.",
+        "Exploration of moral ambiguity":
+          "Characters face complex ethical dilemmas, prompting readers to reflect on their own beliefs about right and wrong.",
+        "Layered narrative perspectives":
+          "The story unfolds through multiple viewpoints, enriching the reader's understanding of characters and plot intricacies.",
+        "Subtle humor amidst darkness":
+          "Clever humor is woven into serious moments, providing levity that enhances character relationships and keeps the narrative engaging.",
+        "Thought-provoking social commentary":
+          "The book subtly critiques societal norms and issues, inviting readers to reflect on contemporary challenges without being didactic.",
+        "Unconventional narrative structure":
+          "The non-linear storytelling and intertwining timelines challenge traditional narrative forms, maintaining suspense and reader engagement.",
+        "Vivid sensory descriptions":
+          "The author's ability to evoke all five senses creates an immersive experience, allowing readers to feel present in the story's settings.",
+      },
+    },
+    {
+      title: "1984",
+      authors: ["George Orwell"],
+      summary:
+        "It is 1984. The world is in a state of perpetual war and Big Brother sees and controls all. Winston Smith, a member of the Outer Party and propaganda-writer at the Ministry of Truth, is keeping a journal he should not be keeping and falling in love with Julia, a woman he should not be seeing. Outwardly compliant, Winston dreams of rebellion against the oppressive Big Brother, risking everything to recover his lost sense of individuality and control of his own future. HarperPerennialClassics brings great works of literature to life in digital format, upholding the highest standards in ebook production and celebrating reading in all its forms. Look for more titles in the HarperPerennial Classics collection to build your digital library.",
+      coverImage:
+        "http://books.google.com/books/content?id=Ku0wEGoXp9gC&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      averageRating: 5,
+      ratingsCount: 64,
+      bookAspects: {
+        "Cultural richness and detail":
+          "The narrative incorporates diverse cultural elements that add authenticity and depth to character interactions and backgrounds.",
+        "Dynamic relationship dynamics":
+          "Characters navigate evolving friendships and alliances, showcasing authentic connections forged in adversity and complexity.",
+        "Exploration of moral ambiguity":
+          "Characters face complex ethical dilemmas, prompting readers to reflect on their own beliefs about right and wrong.",
+        "Layered narrative perspectives":
+          "The story unfolds through multiple viewpoints, enriching the reader's understanding of characters and plot intricacies.",
+        "Subtle humor amidst darkness":
+          "Clever humor is woven into serious moments, providing levity that enhances character relationships and keeps the narrative engaging.",
+        "Thought-provoking social commentary":
+          "The book subtly critiques societal norms and issues, inviting readers to reflect on contemporary challenges without being didactic.",
+        "Unconventional narrative structure":
+          "The non-linear storytelling and intertwining timelines challenge traditional narrative forms, maintaining suspense and reader engagement.",
+        "Vivid sensory descriptions":
+          "The author's ability to evoke all five senses creates an immersive experience, allowing readers to feel present in the story's settings.",
+      },
+    },
+  ];
 
   return (
     <div className="p-6 ">
@@ -60,6 +231,9 @@ export default function BookSearch() {
         </div>
       </div>
       {error && <p className="text-red-500 mt-2">{error}</p>}
+
+      <BookCarousel books={booksWithDetails} />
+
       {results.length > 0 && (
         <div className="mt-4">
           <h2 className="text-lg font-semibold">Search Results</h2>
