@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import axios from "axios";
-import Book from "./components/Book";
+import BookCard from "./components/BookCard";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BookCarousel from "./components/BookCarousel";
 export default function BookSearch() {
   const [query, setQuery] = useState("");
@@ -32,7 +33,7 @@ export default function BookSearch() {
   };
 
   return (
-    <div className="p-6 ">
+    <div className="p-6 flex flex-col items-center">
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-center items-center flex-col">
           <img
@@ -42,11 +43,11 @@ export default function BookSearch() {
           />
           <div className="relative">
             <i className=" absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"></i>
-            {/* <FontAwesomeIcon
+            <FontAwesomeIcon
               icon={faSearch}
               className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400"
-              size="lg"
-            /> */}
+              size="md"
+            />
             <input
               type="text"
               value={query}
@@ -61,11 +62,11 @@ export default function BookSearch() {
       {error && <p className="text-red-500 mt-2">{error}</p>}
 
       {results.length > 0 ? (
-        <div className="mt-4">
-          <h2 className="text-lg font-semibold">Search Results</h2>
-          <ul className="list-none pl-0">
+        <div className="mt-4 max-w-3xl">
+          <h2 className="text-lg font-semibold my-2">Search Results</h2>
+          <ul className="list-none pl-0 flex flex-col gap-y-4">
             {results.map((book, index) => (
-              <Book key={index} book={book} />
+              <BookCard key={index} book={book} />
             ))}
           </ul>
         </div>
