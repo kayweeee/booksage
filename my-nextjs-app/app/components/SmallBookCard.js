@@ -6,7 +6,7 @@ export default function SmallBookCard({ book }) {
   return (
     <div className="w-[400px] flex flex-col gap-3 py-3 rounded-2xl transition-all duration-300 hover:shadow-xl items-center hover:cursor-pointer">
       {/* Book Cover */}
-      <div className="w-3/5 flex justify-center items-center">
+      <div className="w-1/2 flex justify-center items-center">
         <img
           src={book.coverImage}
           alt={book.title}
