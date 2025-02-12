@@ -5,7 +5,7 @@ export async function GET() {
   try {
     const client = await pool.connect();
     const result = await client.query(
-      `SELECT book_title, authors, summary, cover_image, average_rating, ratings_count, book_aspects 
+      `SELECT id, book_title, authors, summary, cover_image, average_rating, ratings_count, book_aspects 
        FROM books 
        ORDER BY RANDOM() 
        LIMIT 8;`
@@ -14,6 +14,7 @@ export async function GET() {
 
     // Format response
     const books = result.rows.map((row) => ({
+      id: row.id,
       title: row.book_title,
       authors: row.authors || ["Unknown Author"],
       summary: row.summary || "No summary available",

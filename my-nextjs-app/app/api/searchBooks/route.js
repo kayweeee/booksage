@@ -20,7 +20,7 @@ export async function GET(req) {
 
     // Fetch books with details from the `books` table
     const result = await client.query(
-      `SELECT book_title, authors, summary, cover_image, average_rating, ratings_count, review_aspects, book_aspects
+      `SELECT id, book_title, authors, summary, cover_image, average_rating, ratings_count, review_aspects, book_aspects
        FROM books WHERE book_title ILIKE $1 LIMIT 10;`,
       [`%${title}%`]
     );
@@ -33,6 +33,7 @@ export async function GET(req) {
 
     // Format response
     const booksWithDetails = result.rows.map((row) => ({
+      id: row.id,
       title: row.book_title,
       authors: row.authors || ["Unknown Author"],
       summary: row.summary || "No summary available",

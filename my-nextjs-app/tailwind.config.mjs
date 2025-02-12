@@ -8,7 +8,7 @@ export default {
   theme: {
     extend: {
       animation: {
-        "infinite-scroll": "infinite-scroll 50s linear infinite",
+        "infinite-scroll": "infinite-scroll 70s linear infinite",
       },
       keyframes: {
         "infinite-scroll": {
@@ -28,8 +28,14 @@ export default {
           900: "#3E2C29",
         },
         green: {
-          600: "#4A7C59",
+          600: "#81b29a",
           700: "#3F6B50",
+        },
+        pink: {
+          500: "#F49CBB",
+        },
+        blue: {
+          500: "#CBEEF3",
         },
       },
       fontFamily: {

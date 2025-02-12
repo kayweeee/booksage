@@ -11,7 +11,7 @@ body {
 
 /* 📖 Typography */
 h1 {
-  @apply text-4xl font-bold font-serif text-brown-900 dark:text-beige-100;
+  @apply text-4xl font-bold font-serif text-brown-700 dark:text-beige-100;
 }
 
 h2 {

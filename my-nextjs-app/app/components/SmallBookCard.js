@@ -1,10 +1,21 @@
 import Badge from "./Badge";
+import { useRouter } from "next/navigation";
 
 export default function SmallBookCard({ book }) {
+  const router = useRouter();
+
   const allAspects = book.bookAspects ? Object.keys(book.bookAspects) : [];
   const displayedAspects = allAspects.slice(0, 3);
+
+  const handleClick = () => {
+    router.push(`/books/${encodeURIComponent(book.id)}`);
+  };
+
   return (
-    <div className="w-[400px] flex flex-col gap-3 py-3 rounded-2xl transition-all duration-300 hover:shadow-xl items-center hover:cursor-pointer">
+    <div
+      className="w-[400px] flex flex-col gap-3 py-3 rounded-2xl transition-all duration-300 hover:shadow-xl items-center hover:cursor-pointer"
+      onClick={handleClick}
+    >
       {/* Book Cover */}
       <div className="w-1/2 flex justify-center items-center">
         <img
