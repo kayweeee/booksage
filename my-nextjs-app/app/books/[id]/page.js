@@ -6,7 +6,7 @@ import StarRating from "@/app/components/StarRating";
 import AspectDesc from "@/app/components/AspectDesc";
 
 export default function BookPage() {
-  const { book_id } = useParams();
+  const { id } = useParams();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,7 +14,7 @@ export default function BookPage() {
   useEffect(() => {
     async function fetchBookDetails() {
       try {
-        const res = await fetch(`/api/book/${book_id}`);
+        const res = await fetch(`/api/book/${id}`);
         if (!res.ok) throw new Error("Book not found");
         const data = await res.json();
         setBook(data);
@@ -25,8 +25,8 @@ export default function BookPage() {
       }
     }
 
-    if (book_id) fetchBookDetails();
-  }, [book_id]);
+    if (id) fetchBookDetails();
+  }, [id]);
 
   console.log(book);
 

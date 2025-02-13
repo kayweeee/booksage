@@ -2,7 +2,8 @@ import pool from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function GET(req, { params }) {
-  const { id } = params;
+  const { pathname } = req.nextUrl;
+  const id = pathname.split("/").pop();
 
   if (!id) {
     return NextResponse.json({ error: "Book ID is required" }, { status: 400 });
