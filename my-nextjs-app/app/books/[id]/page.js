@@ -36,7 +36,7 @@ export default function BookPage() {
 
   return (
     <div className="container mx-auto p-6 flex flex-col justify-center items-center gap-y-10 max-w-4xl">
-      <div className="flex flex-row gap-4 justify-center items-center ">
+      <div className="flex flex-row gap-4 justify-center items-center">
         <div className="w-1/3">
           <img
             src={book.coverImage}
@@ -61,7 +61,12 @@ export default function BookPage() {
         <div className="mt-3 flex flex-col gap-4">
           {book.bookAspects &&
             Object.entries(book.bookAspects).map(([aspect, desc], index) => (
-              <AspectDesc key={index} aspect={aspect} desc={desc} />
+              <AspectDesc
+                key={index}
+                aspect={aspect}
+                desc={desc}
+                id={book.id}
+              />
             ))}
         </div>
       </div>
