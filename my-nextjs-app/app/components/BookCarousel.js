@@ -10,7 +10,7 @@ export default function BookCarousel() {
       try {
         const res = await fetch("/api/getCarouselBooks");
         const data = await res.json();
-        setBooks(data.books || []);
+        setBooks(data || []);
       } catch (error) {
         console.error("Error fetching random books:", error);
       }
@@ -18,6 +18,7 @@ export default function BookCarousel() {
 
     fetchBooks();
   }, []);
+
   return (
     <div className="relative w-full overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-200px),transparent_100%)] pt-5 pb-8">
       <div className="flex whitespace-nowrap">

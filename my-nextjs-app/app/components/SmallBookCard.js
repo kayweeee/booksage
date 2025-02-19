@@ -3,12 +3,15 @@ import { useRouter } from "next/navigation";
 
 export default function SmallBookCard({ book }) {
   const router = useRouter();
+  console.log(book);
 
-  const allAspects = book.bookAspects ? Object.keys(book.bookAspects) : [];
+  const allAspects = book.bookAspects
+    ? book.bookAspects.map((a) => a.aspect)
+    : [];
   const displayedAspects = allAspects.slice(0, 3);
 
   const handleClick = () => {
-    router.push(`/books/${encodeURIComponent(book.id)}`);
+    router.push(`/books/${encodeURIComponent(book.bookId)}`);
   };
 
   return (
@@ -19,7 +22,7 @@ export default function SmallBookCard({ book }) {
       {/* Book Cover */}
       <div className="w-1/2 flex justify-center items-center">
         <img
-          src={book.coverImage}
+          src={book.coverImage || "/placeholder.jpg"} // Fallback for missing cover
           alt={book.title}
           className="w-full rounded-lg object-contained shadow-md"
           draggable={false}
