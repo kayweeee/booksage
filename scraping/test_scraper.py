@@ -1,10 +1,10 @@
 from scraper import scrape_goodreads_reviews
-import aiohttp
 import asyncio
 import json
 import pandas as pd
 from bs4 import BeautifulSoup
 import re
+from datetime import datetime
 
 # Load book URLs from books.json
 def load_book_links(filename="books.json"):
@@ -27,7 +27,7 @@ async def scrape_all_books(book_links):
     return all_reviews
 
 # Save data to CSV
-def save_to_csv(data, filename="book_reviews.csv"):
+def save_to_csv(data, filename=f"book_reviews_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"):
     """Saves scraped reviews to a CSV file."""
     df = pd.DataFrame(data)
     df.to_csv(filename, index=False)
@@ -35,8 +35,7 @@ def save_to_csv(data, filename="book_reviews.csv"):
 
 # Main function to run everything
 async def main():
-    book_links = load_book_links("books.json")
-    print(f"Loaded {len(book_links)} book links.")
+    book_links = ["https://www.goodreads.com/book/show/2767052-the-hunger-games"]
 
     all_reviews = await scrape_all_books(book_links)
 

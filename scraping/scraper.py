@@ -19,10 +19,8 @@ async def scrape_goodreads_reviews(book_url):
                 html = await response.text()
                 soup = BeautifulSoup(html, "html.parser")
 
-                title = soup.find("h1", class_="H1Title").text.strip() if soup.find("h1", class_="H1Title") else None
-                author = soup.find("span", class_="ContributorLink__name").text.strip() if soup.find("span", class_="ContributorLink__name") else None
-                avg_rating = soup.find("div", class_="RatingStatistics__rating").text.strip() if soup.find("div", class_="RatingStatistics__rating") else None
-
+                title = soup.find("h1", class_="Text__title1").text.strip() if soup.find("h1", class_="Text__title1") else None
+       
                 review_cards = soup.find_all("article", class_="ReviewCard")
                 if not review_cards:
                     print(f"No reviews found for {title}.")
@@ -31,28 +29,11 @@ async def scrape_goodreads_reviews(book_url):
                 reviews = []
                 for card in review_cards[:30]:  # Limit to 30 reviews per book
                     try:
-                        review_date_element = card.find("span", class_="Text Text__body3")
-                        review_date = review_date_element.text.strip() if review_date_element else None
-
                         review_text = card.find("span", class_="Formatted").text.strip() if card.find("span", class_="Formatted") else None
 
-                        likes_button = card.find("button", text=lambda x: x and "likes" in x.lower())
-                        likes_text = likes_button.text.strip() if likes_button else "0"
-                        likes = int(re.search(r'\d+', likes_text).group()) if re.search(r'\d+', likes_text) else 0
-
-                        comments_button = card.find("button", text=lambda x: x and "comments" in x.lower())
-                        comments_text = comments_button.text.strip() if comments_button else "0"
-                        comments = int(re.search(r'\d+', comments_text).group()) if re.search(r'\d+', comments_text) else 0
-
                         reviews.append({
-                            "book_url": book_url,
-                            "title": title,
-                            "author": author,
-                            "avg_rating": avg_rating,
-                            "review_date": review_date,
+                            "title": title,                   
                             "review_text": review_text,
-                            "likes": likes,
-                            "comments": comments
                         })
                     except AttributeError:
                         continue
