@@ -12,18 +12,22 @@ body {
 /* 📖 Typography */
 h1 {
   @apply text-4xl font-bold font-serif text-brown-700 dark:text-beige-100;
+  font-family: "Playfair Display", serif;
 }
 
 h2 {
   @apply text-3xl font-semibold font-serif text-brown-800 dark:text-beige-100;
+  font-family: "Playfair Display", serif;
 }
 
 h3 {
   @apply text-2xl font-medium font-serif text-brown-700 dark:text-beige-100;
+  font-family: "Playfair Display", serif;
 }
 
 p {
   @apply text-sm text-gray-700 dark:text-gray-300;
+  font-family: "Inter", sans-serif;
 }
 
 .no-scrollbar::-webkit-scrollbar {

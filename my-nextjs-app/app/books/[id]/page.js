@@ -1,4 +1,4 @@
-"use client"; // ✅ Make this a Client Component
+"use client";
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
@@ -36,12 +36,12 @@ export default function BookPage() {
 
   return (
     <div className="container mx-auto p-6 flex flex-col justify-center items-center gap-y-10 max-w-4xl">
-      <div className="flex flex-row gap-4 justify-center items-center">
+      <div className="flex flex-row gap-4 justify-center mt-4">
         <div className="w-1/3">
           <img
             src={book.coverImage}
             alt={book.title}
-            className="w-64 rounded-lg shadow-md mt-4"
+            className="w-64 rounded-lg shadow-md"
           />
         </div>
         <div className="w-2/3 gap-y-3 flex flex-col">
@@ -56,17 +56,14 @@ export default function BookPage() {
           <p>{book.summary}</p>
         </div>
       </div>
-      <div className="flex flex-col gap-y-2 w-full">
-        <h2>What did people like about this book?</h2>
-        <div className="mt-3 flex flex-col gap-4">
+      <div className="flex flex-col gap-y-2 w-full text-center">
+        <h2 className="underline underline-offset-4">
+          What did people like about this book?
+        </h2>
+        <div className="mt-3 flex flex-col gap-4 w-4/5 mx-auto">
           {book.bookAspects &&
-            Object.entries(book.bookAspects).map(([aspect, desc], index) => (
-              <AspectDesc
-                key={index}
-                aspect={aspect}
-                desc={desc}
-                id={book.id}
-              />
+            book.bookAspects.map((aspect, index) => (
+              <AspectDesc key={index} aspect={aspect} id={book.id} />
             ))}
         </div>
       </div>
