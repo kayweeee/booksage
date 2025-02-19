@@ -2,8 +2,8 @@ import os
 
 # IMPORTANT: POPULATE WITH BOOK LINKS TO SCRAPE
 book_links = [
-        "https://www.goodreads.com/book/show/2767052-the-hunger-games",
-        "https://www.goodreads.com/book/show/4671.The_Great_Gatsby"
+        "https://www.goodreads.com/book/show/13335037-divergent",
+        "https://www.goodreads.com/book/show/61215351-the-fellowship-of-the-ring"
     ]
 
 DATA_DIR = "data"
