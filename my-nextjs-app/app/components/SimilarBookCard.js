@@ -1,6 +1,6 @@
-import Badge from "./Badge";
 import { useRouter } from "next/navigation";
 import StarRating from "./StarRating";
+import ReactMarkdown from "react-markdown";
 
 export default function SimilarBookCard({ book }) {
   const router = useRouter();
@@ -31,7 +31,7 @@ export default function SimilarBookCard({ book }) {
           rating={book.averageRating}
           numberOfReviews={book.ratingsCount}
         />
-        <p>{book.aspectEvaluation}</p>
+        <ReactMarkdown className="prose">{book.aspectEvaluation}</ReactMarkdown>
       </div>
     </div>
   );

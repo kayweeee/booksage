@@ -10,20 +10,22 @@ export default function SimilarBooksPage() {
   const excludeBookId = searchParams.get("excludeBookId");
 
   const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [aspect, setAspect] = useState("");
+  const [targetBook, setTargetBook] = useState("");
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [bookName, setBookName] = useState("");
 
   useEffect(() => {
     async function fetchSimilarBooks() {
       try {
         const res = await fetch(
-          `/api/getSimilarBooks?aspect_id=${id}&excludeBookId=${excludeBookId}`
+          `/api/getSimilarBooks?aspectId=${id}&excludeBookId=${excludeBookId}`
         );
-        console.log("resposne", res);
         if (!res.ok) throw new Error("No similar books found");
         const data = await res.json();
         setBooks(data.books || []);
+        setAspect(data.targetAspect);
+        setTargetBook(data.targetBook);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -34,31 +36,16 @@ export default function SimilarBooksPage() {
     if (id && excludeBookId) fetchSimilarBooks();
   }, [id, excludeBookId]);
 
-  useEffect(() => {
-    async function fetchBookDetails() {
-      try {
-        const res = await fetch(`/api/book/${excludeBookId}`);
-        if (!res.ok) throw new Error("Book not found");
-        const data = await res.json();
-        setBookName(data.title);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    if (excludeBookId) fetchBookDetails();
-  }, [excludeBookId]);
-
   if (loading) return <p>Loading similar books...</p>;
   if (error) return <p className="text-red-500">Error: {error}</p>;
   if (books.length === 0) return <p>No similar books found.</p>;
 
+  console.log(books, "books");
+
   return (
     <div className="container mx-auto p-6 max-w-4xl">
       <h1 className="text-3xl font-bold mb-4">
-        Books Similar to "{bookName}" Based on "{decodeURIComponent(aspect)}"
+        Books Similar to "{targetBook}" Based on "{aspect}"
       </h1>
       <div className="flex flex-col gap-6">
         {books.map((book, index) => (
