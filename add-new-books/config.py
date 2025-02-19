@@ -12,8 +12,6 @@ os.makedirs(DATA_DIR, exist_ok=True)
 RAW_REVIEWS_CSV = os.path.join(DATA_DIR, "book_reviews.csv")
 CLEANED_REVIEWS_CSV = os.path.join(DATA_DIR, "book_reviews_cleaned.csv")
 REVIEW_ASPECTS_CSV = os.path.join(DATA_DIR, "extracted_review_aspects.csv")
-
-# BOOK_TABLE_CSV = os.path.join(DATA_DIR, "book_table.csv")
-# BOOK_ASPECTS_CSV = os.path.join(DATA_DIR, "book_aspects_table.csv")
-
-# DATABASE_URL = os.getenv("DATABASE_URL")
+BOOK_ASPECTS_RAW_CSV = os.path.join(DATA_DIR, "extracted_book_aspects_raw.csv")
+BOOK_ASPECTS_TABLE_CSV = os.path.join(DATA_DIR, "book_aspects_table.csv")
+BOOK_TABLE_CSV = os.path.join(DATA_DIR, "book_table.csv")

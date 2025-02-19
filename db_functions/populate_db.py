@@ -65,7 +65,7 @@ for _, row in df_aspects.iterrows():
         print(f"⚠️ Warning: Book ID not found for title '{row['title']}'")
         continue
 
-    book_aspect = row["book_aspect"]  # Use directly as it is in a column
+    book_aspect = row["book_aspect"]
     explanation = row["book_aspect_explanation"]
     sentiment = row["book_aspect_sentiment"]
     mention_count = row["book_aspect_mention_count"]
