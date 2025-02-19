@@ -19,7 +19,7 @@ export default function AspectDesc({ aspect, id }) {
   const handleAspectClick = () => {
     router.push(
       `/similar/${encodeURIComponent(
-        aspect.aspect
+        aspect.aspect_id
       )}?excludeBookId=${encodeURIComponent(id)}`
     );
   };

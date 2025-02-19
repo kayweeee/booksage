@@ -2,15 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
-import SmallBookCard from "@/app/components/SmallBookCard";
 import SimilarBookCard from "@/app/components/SimilarBookCard";
+
 export default function SimilarBooksPage() {
-  const { aspect } = useParams();
+  const { id } = useParams();
   const searchParams = useSearchParams();
   const excludeBookId = searchParams.get("excludeBookId");
-
-  console.log(excludeBookId, "exclude book");
-  // console.log(searchParams, "search params");
 
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,7 +18,7 @@ export default function SimilarBooksPage() {
     async function fetchSimilarBooks() {
       try {
         const res = await fetch(
-          `/api/getSimilarBooks?aspect=${aspect}&excludeBookId=${excludeBookId}`
+          `/api/getSimilarBooks?aspect_id=${id}&excludeBookId=${excludeBookId}`
         );
         console.log("resposne", res);
         if (!res.ok) throw new Error("No similar books found");
@@ -34,8 +31,8 @@ export default function SimilarBooksPage() {
       }
     }
 
-    if (aspect && excludeBookId) fetchSimilarBooks();
-  }, [aspect, excludeBookId]);
+    if (id && excludeBookId) fetchSimilarBooks();
+  }, [id, excludeBookId]);
 
   useEffect(() => {
     async function fetchBookDetails() {

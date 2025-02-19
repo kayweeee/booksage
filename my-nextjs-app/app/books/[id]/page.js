@@ -63,7 +63,7 @@ export default function BookPage() {
         <div className="mt-3 flex flex-col gap-4 w-4/5 mx-auto">
           {book.bookAspects &&
             book.bookAspects.map((aspect, index) => (
-              <AspectDesc key={index} aspect={aspect} id={book.id} />
+              <AspectDesc key={index} aspect={aspect} id={book.bookId} />
             ))}
         </div>
       </div>
