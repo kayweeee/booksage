@@ -6,11 +6,11 @@ export async function GET(req) {
     req.url,
     `http://${req.headers.get("host")}`
   );
-  const title = searchParams.get("title");
+  const query = searchParams.get("title"); // use query for both title & author searches
 
-  if (!title) {
+  if (!query) {
     return NextResponse.json(
-      { error: "Title query parameter is required" },
+      { error: "Search query parameter is required" },
       { status: 400 }
     );
   }
@@ -19,7 +19,7 @@ export async function GET(req) {
   try {
     client = await pool.connect();
 
-    // Query books with book aspects using LEFT JOIN
+    // Query books based on title or author
     const result = await client.query(
       `
       SELECT 
@@ -40,18 +40,21 @@ export async function GET(req) {
         ) FILTER (WHERE ba.book_aspect IS NOT NULL), '[]') AS book_aspects
       FROM books b
       LEFT JOIN book_aspects ba ON b.book_id = ba.book_id
-      WHERE b.title ILIKE $1
+      WHERE b.title ILIKE $1 OR EXISTS (
+        SELECT 1 FROM unnest(b.authors) AS author WHERE author ILIKE $1
+      )
       GROUP BY b.book_id
       LIMIT 10;
       `,
-      [`%${title}%`]
+      [`%${query}%`]
     );
 
+    client.release();
+
     if (result.rows.length === 0) {
-      return NextResponse.json({ message: "No books found" }, { status: 404 });
+      return NextResponse.json({ books: [] }, { status: 200 });
     }
 
-    // Format response
     const booksWithDetails = result.rows.map((row) => ({
       id: row.book_id,
       title: row.title,
@@ -70,7 +73,5 @@ export async function GET(req) {
       { error: "Internal Server Error", details: error.message },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release(); // Ensure the connection is always released
   }
 }

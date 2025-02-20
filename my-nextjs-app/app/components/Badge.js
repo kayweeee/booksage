@@ -13,7 +13,7 @@ export default function Badge({ text, sentiment }) {
 
   return (
     <span
-      className={`px-3 py-1 bg-blue-500 rounded-full text-xs font-medium shadow-md ${getBackgroundColor(
+      className={`px-3 py-1 rounded-full text-xs font-bold shadow-md  ${getBackgroundColor(
         sentiment
       )}`}
     >
