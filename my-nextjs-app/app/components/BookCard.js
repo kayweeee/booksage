@@ -29,8 +29,12 @@ export default function BookCard({ book }) {
 
         <div className="flex flex-wrap gap-1">
           {book.bookAspects &&
-            Object.keys(book.bookAspects).map((aspect, index) => (
-              <Badge key={index} text={aspect} />
+            book.bookAspects.map((aspect, index) => (
+              <Badge
+                key={index}
+                text={aspect.aspect}
+                sentiment={aspect.sentiment}
+              />
             ))}
         </div>
       </div>

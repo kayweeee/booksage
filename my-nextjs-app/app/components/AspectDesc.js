@@ -12,7 +12,7 @@ export default function AspectDesc({ aspect, id }) {
         return "bg-red-500 group-hover:bg-red-600";
       case "mixed":
       default:
-        return "bg-blue-500 group-hover:bg-blue-600";
+        return "bg-yellow-500 group-hover:bg-yellow-600";
     }
   };
 

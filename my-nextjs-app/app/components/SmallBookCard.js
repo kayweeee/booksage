@@ -3,10 +3,14 @@ import { useRouter } from "next/navigation";
 
 export default function SmallBookCard({ book }) {
   const router = useRouter();
-  console.log(book);
 
   const allAspects = book.bookAspects
-    ? book.bookAspects.map((a) => a.aspect)
+    ? book.bookAspects.map((a) => {
+        return {
+          aspect: a.aspect,
+          sentiment: a.sentiment,
+        };
+      })
     : [];
   const displayedAspects = allAspects.slice(0, 3);
 
@@ -33,7 +37,11 @@ export default function SmallBookCard({ book }) {
       <div className="flex flex-col w-full space-y-2">
         <div className="flex flex-wrap gap-1 items-center justify-center">
           {displayedAspects.map((aspect, index) => (
-            <Badge key={index} text={aspect} />
+            <Badge
+              key={index}
+              text={aspect.aspect}
+              sentiment={aspect.sentiment}
+            />
           ))}
           {allAspects.length > 3 && (
             <span className="text-gray-500 text-sm">... and more</span>
