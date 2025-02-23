@@ -3,10 +3,11 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 from tqdm import tqdm
-from config import BOOK_TABLE_CSV, REVIEW_ASPECTS_CSV
+from config import BOOK_TABLE_CSV, REVIEW_ASPECTS_CSV, RAW_REVIEWS_CSV
 
 load_dotenv()
 google_books_api_key = os.getenv("GOOGLE_BOOKS_API_KEY")
+df_metadata = pd.read_csv(RAW_REVIEWS_CSV)
 
 def fetch_book_details(title):
     """
@@ -16,15 +17,18 @@ def fetch_book_details(title):
     url = f"https://www.googleapis.com/books/v1/volumes?q=intitle:{title}&key={google_books_api_key}"
     response = requests.get(url)
     data = response.json()
+    book_entry = df_metadata[df_metadata["title"].str.lower() == title.lower()]
+    book_entry = book_entry.iloc[0]
+
 
     if not data.get("items"):
         return {
             "title": title,
             "authors": ["Unknown"],
-            "summary": "No details found",
             "cover_image": None,
-            "average_rating": None,
-            "ratings_count": None,
+            "summary": book_entry['summary'],
+            "average_rating":book_entry['average_rating'],
+            "ratings_count": book_entry['ratings_count'],
         }
 
     best_match = None
@@ -50,19 +54,19 @@ def fetch_book_details(title):
         return {
             "title": title,
             "authors": ["Unknown"],
-            "summary": "No details found",
             "cover_image": None,
-            "average_rating": None,
-            "ratings_count": None,
+            "summary": book_entry['summary'],
+            "average_rating":book_entry['average_rating'],
+            "ratings_count": book_entry['ratings_count'],
         }
-
+    
     return {
         "title": best_match.get("title", title),
         "authors": best_match.get("authors", ["Unknown"]),
-        "summary": best_match.get("description", "No summary available"),
         "cover_image": best_match.get("imageLinks", {}).get("thumbnail", None),
-        "average_rating": best_match.get("averageRating", None),
-        "ratings_count": best_match.get("ratingsCount", None),
+        "summary": book_entry['summary'],
+        "average_rating":book_entry['average_rating'],
+        "ratings_count": book_entry['ratings_count'],
     }
 
 def fetch_and_save_metadata():

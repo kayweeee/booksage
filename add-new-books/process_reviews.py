@@ -49,6 +49,7 @@ df['cleaned_review'] = df['review_text'].astype(str).apply(clean_text)
 ### STEP 3: FILTER SHORT REVIEWS ###
 df['review_length'] = df['cleaned_review'].apply(lambda x: len(x.split()))
 df = df[df['review_length'] >= 45].drop(columns=['review_length']).reset_index(drop=True)
+df = df[['title', 'cleaned_review', 'review_text']]
 print(f"✅ Filtered {len(df)} reviews with at least 45 words.")
 
 # Save cleaned reviews

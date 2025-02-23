@@ -5,6 +5,7 @@ from config import RAW_REVIEWS_CSV, book_links
 
 import aiohttp
 from bs4 import BeautifulSoup
+import re
 
 async def scrape_goodreads_reviews(book_url):
     """Scrapes Goodreads reviews for a given book URL."""
@@ -24,7 +25,15 @@ async def scrape_goodreads_reviews(book_url):
                 soup = BeautifulSoup(html, "html.parser")
 
                 title = soup.find("h1", class_="Text__title1").text.strip() if soup.find("h1", class_="Text__title1") else None
-       
+                summary = soup.find("span", class_="Formatted").text.strip() if soup.find("span", class_="Formatted") else "No summary available"
+                rating = soup.find("div", class_="RatingStatistics__rating").text.strip() if soup.find("div", class_="RatingStatistics__rating") else None
+                rating = float(rating) if rating else None
+
+                ratings_count_tag = soup.find("span", {"data-testid": "ratingsCount"})
+                ratings_text = ratings_count_tag.get_text(strip=True)
+                ratings_text = re.sub(r"[^\d]", "", ratings_text)
+                ratings_count = int(ratings_text) if ratings_text.isdigit() else 0
+
                 review_cards = soup.find_all("article", class_="ReviewCard")
                 if not review_cards:
                     print(f"No reviews found for {title}.")
@@ -38,6 +47,9 @@ async def scrape_goodreads_reviews(book_url):
                         reviews.append({
                             "title": title,                   
                             "review_text": review_text,
+                            "summary": summary,
+                            "average_rating": rating,
+                            "ratings_count": ratings_count
                         })
                     except AttributeError:
                         continue

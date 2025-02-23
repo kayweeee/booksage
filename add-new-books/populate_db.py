@@ -29,17 +29,26 @@ def convert_to_list(array_str):
 
 df_books["authors"] = df_books["authors"].apply(convert_to_list)
 df_books["reviews"] = df_books["reviews"].apply(convert_to_list)
+df_books["average_rating"] = df_books["average_rating"].astype(float).round(1)
 
-df_books.to_sql("books", engine, if_exists="append", index=False, dtype={
-    "title": types.TEXT,
-    "authors": types.ARRAY(types.TEXT),
-    "summary": types.TEXT,
-    "cover_image": types.TEXT,
-    "average_rating": types.FLOAT,
-    "ratings_count": types.INTEGER,
-    "review_aspects": JSONB,
-    "reviews": types.ARRAY(types.TEXT)
-})
+insert_books_query = """
+    INSERT INTO books (title, authors, summary, cover_image, average_rating, ratings_count, review_aspects, reviews)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+    ON CONFLICT (title) DO NOTHING;
+"""
+
+for _, row in df_books.iterrows():
+    cur.execute(insert_books_query, (
+        row["title"], 
+        row["authors"], 
+        row["summary"], 
+        row["cover_image"], 
+        row["average_rating"], 
+        row["ratings_count"], 
+        json.dumps(row["review_aspects"]), 
+        row["reviews"]
+    ))
+
 print("✅ 'books' table populated successfully!")
 
 print("\n🔍 Retrieving book IDs for aspect linking...")
