@@ -28,7 +28,8 @@ cur.execute("""
         cover_image TEXT,  -- Cover image URL
         average_rating FLOAT,  -- Book average rating
         ratings_count INT,  -- Number of ratings
-        review_aspects JSONB  -- Stores extracted review aspects in JSONB format
+        review_aspects JSONB,  -- Stores extracted review aspects in JSONB format
+        reviews TEXT[]
     );
 """)
 

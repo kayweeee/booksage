@@ -21,13 +21,14 @@ cur = conn.cursor()
 print("\n📚 Inserting book metadata into 'books' table...")
 df_books = pd.read_csv(BOOK_TABLE_CSV)
 
-def clean_authors(authors):
+def convert_to_list(array_str):
     """Ensures authors are stored as a list."""
-    if isinstance(authors, str):
-        authors = ast.literal_eval(authors)
-    return authors if isinstance(authors, list) else [authors]
+    if isinstance(array_str, str):
+        array_str = ast.literal_eval(array_str)
+    return array_str if isinstance(array_str, list) else [array_str]
 
-df_books["authors"] = df_books["authors"].apply(clean_authors)
+df_books["authors"] = df_books["authors"].apply(convert_to_list)
+df_books["reviews"] = df_books["reviews"].apply(convert_to_list)
 
 df_books.to_sql("books", engine, if_exists="append", index=False, dtype={
     "title": types.TEXT,
@@ -36,7 +37,8 @@ df_books.to_sql("books", engine, if_exists="append", index=False, dtype={
     "cover_image": types.TEXT,
     "average_rating": types.FLOAT,
     "ratings_count": types.INTEGER,
-    "review_aspects": JSONB
+    "review_aspects": JSONB,
+    "reviews": types.ARRAY(types.TEXT)
 })
 print("✅ 'books' table populated successfully!")
 

@@ -74,8 +74,11 @@ def fetch_and_save_metadata():
     if "title" not in df_reviews.columns or "review_aspects" not in df_reviews.columns:
         raise ValueError("❌ Required columns 'title' or 'review_aspects' missing!")
 
-    df_books = df_reviews.groupby("title")["review_aspects"].apply(list).reset_index()
-
+    df_books = df_reviews.groupby("title").agg({
+        "review_aspects": list, 
+        "review_text": list     
+    }).reset_index()
+    df_books.rename(columns={"review_text": "reviews"}, inplace=True)
 
     if "title" not in df_books.columns:
         raise ValueError("❌ Column 'title' missing from book aspects data!")
@@ -88,7 +91,7 @@ def fetch_and_save_metadata():
 
     df_metadata = pd.DataFrame(book_metadata)
 
-    df_metadata = pd.merge(df_metadata, df_books[['title', 'review_aspects']], on='title', how='left')
+    df_metadata = pd.merge(df_metadata, df_books[['title', 'review_aspects', 'reviews']], on='title', how='left')
 
     df_metadata.to_csv(BOOK_TABLE_CSV, index=False)
     print(f"✅ Book metadata saved to {BOOK_TABLE_CSV}")
