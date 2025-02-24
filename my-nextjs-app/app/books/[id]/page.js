@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import StarRating from "@/app/components/StarRating";
 import AspectDesc from "@/app/components/AspectDesc";
+import ReviewSection from "@/app/components/ReviewSection";
 
 export default function BookPage() {
   const { id } = useParams();
@@ -35,8 +36,8 @@ export default function BookPage() {
   if (!book) return <p>No book found.</p>;
 
   return (
-    <div className="container mx-auto p-6 flex flex-col justify-center items-center gap-y-10 max-w-4xl">
-      <div className="flex flex-row gap-4 justify-center mt-4">
+    <div className="container mx-auto px-6 flex flex-col justify-center items-center gap-y-12 max-w-4xl">
+      <div className="flex flex-row gap-4 justify-center">
         <div className="w-1/3">
           <img
             src={book.coverImage}
@@ -58,7 +59,7 @@ export default function BookPage() {
       </div>
       <div className="flex flex-col gap-y-2 w-full text-center">
         <h2 className="underline underline-offset-4">
-          What did people like about this book?
+          What did people discuss about this book?
         </h2>
         <div className="mt-3 flex flex-col gap-4 w-4/5 mx-auto">
           {book.bookAspects &&
@@ -66,6 +67,10 @@ export default function BookPage() {
               <AspectDesc key={index} aspect={aspect} id={book.bookId} />
             ))}
         </div>
+      </div>
+      <div className="flex flex-col gap-y-2 w-full text-center">
+        <h2 className="underline underline-offset-4">Reviews</h2>
+        <ReviewSection reviews={book.reviews} />
       </div>
     </div>
   );

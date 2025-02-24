@@ -25,7 +25,8 @@ export async function GET(req, { params }) {
         cover_image, 
         average_rating, 
         ratings_count, 
-        review_aspects
+        review_aspects,
+        reviews
       FROM books
       WHERE book_id = $1;
     `;
@@ -65,6 +66,7 @@ export async function GET(req, { params }) {
         averageRating: book.average_rating || "Unknown",
         ratingsCount: book.ratings_count || "Unknown",
         reviewAspects: book.review_aspects || {},
+        reviews: book.reviews || [],
         bookAspects: aspectsResult.rows.map((aspect) => ({
           aspect_id: aspect.aspect_id,
           aspect: aspect.book_aspect,
