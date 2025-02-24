@@ -64,17 +64,24 @@ export async function GET(req) {
 
     console.log("🔍 Running similarity search...");
     const similarBooksResult = await client.query(
-      `SELECT DISTINCT ON (books.book_id) 
-              books.book_id, books.title, books.authors, books.summary, books.cover_image, books.average_rating, books.ratings_count,
-              books.review_aspects, -- ✅ Added review aspects
-              book_aspects.book_aspect, book_aspects.aspect_embedding <-> $1 AS similarity
+      `SELECT 
+            books.book_id, books.title, books.authors, books.summary, 
+            books.cover_image, books.average_rating, books.ratings_count,
+            books.review_aspects, 
+            book_aspects.book_aspect, 
+            MIN(book_aspects.aspect_embedding <-> $1) AS similarity  -- ✅ Fix: Select MIN similarity per book
        FROM book_aspects
        JOIN books ON book_aspects.book_id = books.book_id
        WHERE books.book_id != $2
-       ORDER BY books.book_id, similarity ASC
+       GROUP BY books.book_id, books.title, books.authors, books.summary, 
+                books.cover_image, books.average_rating, books.ratings_count, 
+                books.review_aspects, book_aspects.book_aspect
+       ORDER BY similarity ASC
        LIMIT 3;`,
       [aspectEmbedding, excludeBookId]
     );
+
+    console.log(similarBooksResult.rows, "similarBooksResult");
 
     client.release();
 
@@ -121,15 +128,54 @@ export async function GET(req) {
 // ✅ Updated LLM function to analyze reviews
 async function evaluateAspect(aspect, reviewAspects) {
   const prompt = `
-  Analyze the reviews of this book and explain how they relate to the aspect: "${aspect}". 
-  If they don't discuss it, say so. If they do discuss it, provide a brief evaluation of the aspect.
+  The following book has been identified as similar based on the aspect: "${aspect}".
 
-  Reviews Summary:
-  ${JSON.stringify(reviewAspects, null, 2)}
+  Task:
+  - Analyze the book’s reviews and explain why this book is recommended for readers who enjoyed the given aspect.  
+  - Provide 3 to 5 key reasons why this book aligns with the selected aspect.  
+  - Use the reviews to support your points. 
+
+
+  Guidelines:  
+  - Keep responses concise and well-structured.  
+  - Emphasize unique elements of the book that make it a strong recommendation based on the aspect.
+  - Follow the exact output format below for consistency.
   
-  Your response should be a concise analysis.
-  `;
 
+  Reviews Summary:  
+  ${JSON.stringify(reviewAspects, null, 2)}
+
+  ---
+
+  **Required Output Format**  
+  (Your response should follow this structure exactly.)
+
+  This book has been identified as a strong recommendation for readers who appreciated the aspect **"${aspect}"**. Below is an in-depth analysis of why this book aligns with that aspect, supported by insights from reader reviews.  
+
+
+  1. **[Key Reason 1]**
+    - [Explanation: How the book captures this aspect effectively.]  
+
+
+  2. **[Key Reason 2]**
+    - [Explanation: Further details on how the book reflects this aspect.]  
+
+
+  3. **[Key Reason 3]**
+    - [Explanation: Another strong reason why this book resonates with readers who enjoy this aspect.]  
+
+
+  4. **[Key Reason 4] (Optional)**
+    - [Explanation: Additional depth into why this aspect is significant in the book.]  
+
+
+  5. **[Key Reason 5] (Optional)**
+    - [Explanation: Final supporting reason.]  
+
+    
+  ### Conclusion
+  Overall, this book is a strong recommendation for readers drawn to **"${aspect}"** due to its [summary of key strengths related to the aspect]. The combination of [highlighted features] makes it a compelling choice for those who found this aspect engaging in previous books.
+`;
   const response = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [{ role: "user", content: prompt }],

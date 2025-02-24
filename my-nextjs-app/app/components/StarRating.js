@@ -69,7 +69,7 @@ export default function StarRating({ rating, numberOfReviews }) {
         })}
         <h3 className="ml-2 tracking-wide">{rating}/5 Stars</h3>
       </div>
-      <p className="text-gray-500">({numberOfReviews} reviews)</p>
+      <p className="text-gray-500">({numberOfReviews} ratings)</p>
     </div>
   );
 }

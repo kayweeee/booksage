@@ -11,10 +11,10 @@ export default function SimilarBookCard({ book }) {
 
   return (
     <div
-      className="book-card flex flex-row gap-6 p-6 bg-white dark:bg-brown-800 shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl cursor-pointer group"
+      className="book-card flex flex-row gap-6 p-6 bg-white shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl cursor-pointer group"
       onClick={handleClick}
     >
-      <div className="w-1/5 flex justify-center items-center">
+      <div className="w-1/5 flex justify-center">
         <img
           src={book.coverImage}
           alt={book.title}
@@ -31,7 +31,7 @@ export default function SimilarBookCard({ book }) {
           rating={book.averageRating}
           numberOfReviews={book.ratingsCount}
         />
-        <ReactMarkdown className="prose">{book.aspectEvaluation}</ReactMarkdown>
+        <ReactMarkdown>{book.aspectEvaluation}</ReactMarkdown>
       </div>
     </div>
   );
