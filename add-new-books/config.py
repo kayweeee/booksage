@@ -2,9 +2,8 @@ import os
 
 # IMPORTANT: POPULATE WITH BOOK LINKS TO SCRAPE
 book_links = [
-        "https://www.goodreads.com/book/show/13335037-divergent",
-        "https://www.goodreads.com/book/show/61215351-the-fellowship-of-the-ring"
-    ]
+"https://www.goodreads.com/book/show/15753740-the-storyteller",
+]
 
 DATA_DIR = "data"
 os.makedirs(DATA_DIR, exist_ok=True)

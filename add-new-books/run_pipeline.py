@@ -59,12 +59,12 @@ def move_processed_files():
 ### MAIN FUNCTION ###
 if __name__ == "__main__":
     try:
-        # run_scraper()      
-        # process_reviews()    
-        # extract_review_aspects()
-        # extract_book_aspects() 
-        # fetch_book_metadata()
-        # populate_db()
+        run_scraper()      
+        process_reviews()    
+        extract_review_aspects()
+        extract_book_aspects() 
+        fetch_book_metadata()
+        populate_db()
         move_processed_files()
 
         print("\n🎉 Pipeline completed successfully!")
