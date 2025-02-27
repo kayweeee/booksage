@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import StarRating from "@/app/components/StarRating";
 import AspectDesc from "@/app/components/AspectDesc";
 import ReviewSection from "@/app/components/ReviewSection";
+import Loader from "@/app/components/Loader";
 
 export default function BookPage() {
   const { id } = useParams();
@@ -31,7 +32,7 @@ export default function BookPage() {
 
   console.log(book);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (error) return <p className="text-red-500">Error: {error}</p>;
   if (!book) return <p>No book found.</p>;
 
@@ -61,6 +62,34 @@ export default function BookPage() {
         <h2 className="underline underline-offset-4">
           What did people discuss about this book?
         </h2>
+        <div className="mb-5 mt-3">
+          <p className="max-w-2xl mx-auto">
+            The aspects below represent key discussion points extracted from
+            reader reviews. Using{" "}
+            <span className="font-bold">natural language processing (NLP)</span>
+            , we analyzed reviews to uncover recurring themes, unique insights,
+            and overall sentiment toward these aspects. Each aspect is
+            accompanied by a brief explanation reflecting how readers perceived
+            it, with sentiment indicated by the colors below.
+          </p>
+
+          {/* Sentiment Legend */}
+          <div className="flex flex-wrap justify-center items-center gap-4 text-sm mt-3">
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 bg-green-500 rounded-full"></span>
+              <span>Positive</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 bg-red-500 rounded-full"></span>
+              <span>Negative</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-4 h-4 bg-yellow-500 rounded-full"></span>
+              <span>Mixed Reception</span>
+            </div>
+          </div>
+        </div>
+
         <div className="mt-3 flex flex-col gap-4 w-4/5 mx-auto">
           {book.bookAspects &&
             book.bookAspects.map((aspect, index) => (

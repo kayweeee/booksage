@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import SimilarBookCard from "@/app/components/SimilarBookCard";
-
+import Loader from "@/app/components/Loader";
 export default function SimilarBooksPage() {
   const { id } = useParams();
   const searchParams = useSearchParams();
@@ -36,7 +36,9 @@ export default function SimilarBooksPage() {
     if (id && excludeBookId) fetchSimilarBooks();
   }, [id, excludeBookId]);
 
-  if (loading) return <p>Loading similar books...</p>;
+  if (loading)
+    return <Loader message="Finding books with similar aspects..." />;
+
   if (error) return <p className="text-red-500">Error: {error}</p>;
   if (books.length === 0) return <p>No similar books found.</p>;
 
