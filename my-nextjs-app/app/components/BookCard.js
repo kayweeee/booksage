@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Badge from "./Badge";
 import { useRouter } from "next/navigation";
 
@@ -14,9 +15,11 @@ export default function BookCard({ book }) {
       onClick={handleClick}
     >
       <div className="w-1/5 flex justify-center items-center">
-        <img
+        <Image
           src={book.coverImage}
           alt={book.title}
+          width={256}
+          height={384}
           className="h-[200px] rounded-lg object-contained shadow-md"
         />
       </div>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Badge from "./Badge";
 import { useRouter } from "next/navigation";
 
@@ -25,9 +26,11 @@ export default function SmallBookCard({ book }) {
     >
       {/* Book Cover */}
       <div className="w-1/2 flex justify-center items-center">
-        <img
+        <Image
           src={book.coverImage || "/placeholder.jpg"} // Fallback for missing cover
           alt={book.title}
+          width={256}
+          height={384}
           className="w-full rounded-lg object-contained shadow-md"
           draggable={false}
         />

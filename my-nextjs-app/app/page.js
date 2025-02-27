@@ -6,6 +6,7 @@ import BookCard from "./components/BookCard";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BookCarousel from "./components/BookCarousel";
+import Image from "next/image";
 
 export default function BookSearch() {
   const [query, setQuery] = useState("");
@@ -46,9 +47,11 @@ export default function BookSearch() {
     <div className="p-6 flex flex-col items-center">
       <div className="max-w-2xl mx-auto">
         <div className="flex justify-center items-center flex-col">
-          <img
+          <Image
             src="/BookSageLogo.png"
             alt="Book Cover"
+            width={320}
+            height={100}
             className="w-80 object-cover rounded-lg"
           />
           <div className="relative">

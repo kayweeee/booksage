@@ -6,6 +6,7 @@ import StarRating from "@/app/components/StarRating";
 import AspectDesc from "@/app/components/AspectDesc";
 import ReviewSection from "@/app/components/ReviewSection";
 import Loader from "@/app/components/Loader";
+import Image from "next/image";
 
 export default function BookPage() {
   const { id } = useParams();
@@ -40,9 +41,11 @@ export default function BookPage() {
     <div className="container mx-auto px-6 flex flex-col justify-center items-center gap-y-12 max-w-4xl">
       <div className="flex flex-row gap-4 justify-center">
         <div className="w-1/3">
-          <img
+          <Image
             src={book.coverImage}
             alt={book.title}
+            width={256}
+            height={384}
             className="w-64 rounded-lg shadow-md"
           />
         </div>

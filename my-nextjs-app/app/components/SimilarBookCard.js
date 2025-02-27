@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import StarRating from "./StarRating";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 
 export default function SimilarBookCard({ book }) {
   const router = useRouter();
@@ -15,9 +16,11 @@ export default function SimilarBookCard({ book }) {
       onClick={handleClick}
     >
       <div className="w-1/5 flex justify-center">
-        <img
+        <Image
           src={book.coverImage}
           alt={book.title}
+          width={256}
+          height={384}
           className="h-[200px] rounded-lg object-contained shadow-md"
         />
       </div>

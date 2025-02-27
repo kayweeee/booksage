@@ -6,6 +6,7 @@ import {
   faUserCheck,
   faLightbulb,
 } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
 
 export default function About() {
   const features = [
@@ -38,9 +39,11 @@ export default function About() {
   return (
     <div className="pb-8">
       <div className="flex items-center justify-center max-w-4xl mx-auto">
-        <img
+        <Image
           src="/BookSageLogo.png"
           alt="Book Sage Logo"
+          width={288}
+          height={96}
           className="w-72 object-cover rounded-lg hover:cursor-pointer"
         />
         <div className="flex flex-col gap-y-5">

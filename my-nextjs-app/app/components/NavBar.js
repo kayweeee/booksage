@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -8,9 +9,11 @@ export default function NavBar() {
   return (
     <div className="pt-3 pb-6 px-6 w-full flex flex-row justify-between items-center">
       <Link href="/" className="flex items-center">
-        <img
+        <Image
           src="/Small-Logo.png"
           alt="Book Sage Logo"
+          width={112}
+          height={36}
           className="w-28 object-cover rounded-lg hover:cursor-pointer"
         />
       </Link>
