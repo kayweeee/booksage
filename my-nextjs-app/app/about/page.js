@@ -1,4 +1,6 @@
 "use client";
+/* eslint-disable react/no-unescaped-entities */
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faStarHalfAlt,
