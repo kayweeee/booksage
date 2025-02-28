@@ -30,6 +30,11 @@ p {
   font-family: "Montserrat", sans-serif;
 }
 
+.markdown-content {
+  @apply text-sm text-gray-700 dark:text-gray-300;
+  font-family: "Montserrat", sans-serif;
+}
+
 span {
   @apply text-sm text-gray-700 dark:text-gray-300;
   font-family: "Montserrat", sans-serif;

@@ -8,7 +8,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "books.google.com",
+        hostname: "books.google.com.sg",
       },
     ],
   },

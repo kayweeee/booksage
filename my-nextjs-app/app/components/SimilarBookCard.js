@@ -15,13 +15,13 @@ export default function SimilarBookCard({ book }) {
       className="book-card flex flex-row gap-6 p-6 bg-white shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl cursor-pointer group"
       onClick={handleClick}
     >
-      <div className="w-1/5 flex justify-center">
+      <div className="w-1/5 flex justify-center items-start">
         <Image
           src={book.coverImage}
           alt={book.title}
           width={256}
           height={384}
-          className="h-[200px] rounded-lg object-contained shadow-md"
+          className="rounded-lg object-contain shadow-md"
         />
       </div>
 
@@ -34,7 +34,9 @@ export default function SimilarBookCard({ book }) {
           rating={book.averageRating}
           numberOfReviews={book.ratingsCount}
         />
-        <ReactMarkdown>{book.aspectEvaluation}</ReactMarkdown>
+        <ReactMarkdown className="markdown-content">
+          {book.aspectEvaluation}
+        </ReactMarkdown>
       </div>
     </div>
   );
