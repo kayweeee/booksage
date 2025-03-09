@@ -5,41 +5,35 @@
 /* 🌟 Global Styles */
 body {
   @apply bg-beige-100 text-brown-900 dark:bg-brown-900 dark:text-beige-100;
-  font-family: "Montserrat", serif;
+  font-family: "Lato", sans-serif;
   transition: all 0.3s ease-in-out;
 }
 
 /* 📖 Typography */
 h1 {
-  @apply text-4xl font-bold font-serif text-brown-700 dark:text-beige-100;
-  font-family: "Libre Baskerville", serif;
+  @apply text-4xl font-bold text-brown-700 dark:text-beige-100;
+  font-family: "Lato", sans-serif;
 }
 
 h2 {
-  @apply text-3xl font-semibold font-serif text-brown-800 dark:text-beige-100;
-  font-family: "Libre Baskerville", serif;
+  @apply text-3xl font-semibold text-brown-800 dark:text-beige-100;
+  font-family: "Lato", sans-serif;
 }
 
 h3 {
-  @apply text-2xl font-medium font-serif text-brown-700 dark:text-beige-100;
-  font-family: "Libre Baskerville", serif;
+  @apply text-2xl font-medium text-brown-700 dark:text-beige-100;
+  font-family: "Lato", sans-serif;
 }
 
-p {
-  @apply text-sm text-gray-700 dark:text-gray-300;
-  font-family: "Montserrat", sans-serif;
-}
-
-.markdown-content {
-  @apply text-sm text-gray-700 dark:text-gray-300;
-  font-family: "Montserrat", sans-serif;
-}
-
+/* 📝 Body Text */
+p,
+.markdown-content,
 span {
   @apply text-sm text-gray-700 dark:text-gray-300;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
+/* 🚫 Hide Scrollbars */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

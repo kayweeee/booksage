@@ -9,6 +9,16 @@ export default function BookCard({ book }) {
     router.push(`/books/${encodeURIComponent(book.id)}`);
   };
 
+  const negativeAspects = book.bookAspects
+    .filter((aspect) => aspect.sentiment === "negative")
+    .map((aspect) => aspect.aspect)
+    .join(", ");
+
+  const positiveAspects = book.bookAspects
+    .filter((aspect) => aspect.sentiment === "positive")
+    .map((aspect) => aspect.aspect)
+    .join(", ");
+
   return (
     <div
       className="book-card flex flex-row gap-6 p-6 bg-white dark:bg-brown-800 shadow-lg rounded-2xl transition-all duration-300 hover:shadow-xl cursor-pointer group"
@@ -31,14 +41,17 @@ export default function BookCard({ book }) {
         </div>
 
         <div className="flex flex-wrap gap-1">
-          {book.bookAspects &&
-            book.bookAspects.map((aspect, index) => (
-              <Badge
-                key={index}
-                text={aspect.aspect}
-                sentiment={aspect.sentiment}
-              />
-            ))}
+          {console.log(book.bookAspects)}
+          {positiveAspects && (
+            <p>
+              <b>What people liked:</b> {positiveAspects}
+            </p>
+          )}
+          {negativeAspects && (
+            <p>
+              <b>What people disliked:</b> {negativeAspects}
+            </p>
+          )}
         </div>
       </div>
     </div>
