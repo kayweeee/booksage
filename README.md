@@ -4,6 +4,11 @@ BookSage is an AI-powered book recommendation system developed as part of my fin
 
 Unlike traditional recommender systems that rely on ratings or metadata, BookSage extracts nuanced insights from user reviews to surface recommendations grounded in specific narrative elements such as writing style, character complexity, or thematic depth.
 
+The project involved designing a pipeline that:
+- Extracts nuanced aspects from individual reviews using an iteratively developed LLM prompt.
+- Aggregates these into **book-level insights** summarizing reader sentiment and prominent themes.
+- Enables users to search for books based on specific aspects and receive **explainable recommendations** grounded in real user experiences.
+
 
 ## ✨ Features
 
@@ -20,9 +25,6 @@ Unlike traditional recommender systems that rely on ratings or metadata, BookSag
 - **Embedding Model:** OpenAI `text-embedding-ada-002`
 - **LLM:** GPT-4o (via OpenAI API)
 
-
-## 📘 About the Thesis
-This project was completed as part of my undergraduate thesis, exploring the use of LLMs for Aspect-Based Sentiment Analysis in Book Recommendation Systems. The goal was to address the transparency and personalization limitations of traditional recommender systems.
 
 ## 🤝 Acknowledgements
 Special thanks to my thesis advisor, Dr. Roy Ka-Wei Lee, for his guidance throughout this project, and to all participants who tested and provided feedback on BookSage.
